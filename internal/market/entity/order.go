@@ -25,13 +25,3 @@ func NewOrder(orderId string, investor *Investor, asset *Asset, shares int, pric
 		Transactions:  []*Transaction{},
 	}
 }
-
-func (o *Order) SubtractPendingShares(shares int) {
-	o.PendingShares -= shares
-}
-
-func (o *Order) TryToCloseOrder() {
-	if o.PendingShares == 0 {
-		o.Status = "CLOSED"
-	}
-}
