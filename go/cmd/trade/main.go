@@ -21,12 +21,11 @@ func main() {
 	kafkaMsgChan := make(chan *ckafka.Message)
 	configMap := &ckafka.ConfigMap{
 		"bootstrap.servers": "host.docker.internal:9094",
-		"groud.id":          "myGroup",
-		"auto.offset.reset": "earliest",
+		"group.id":          "myGroup",
+		"auto.offset.reset": "latest",
 	}
-
 	producer := kafka.NewKafkaProducer(configMap)
-	kafka := kafka.NewKafkaConsumer(configMap, []string{"input"})
+	kafka := kafka.NewConsumer(configMap, []string{"input"})
 
 	go kafka.Consume(kafkaMsgChan) // "go" creates a new thread
 
@@ -51,6 +50,7 @@ func main() {
 	for res := range ordersOut {
 		output := transformer.TransformOutput(res)
 		outputJson, err := json.MarshalIndent(output, "", "  ")
+		fmt.Println(string(outputJson))
 		if err != nil {
 			fmt.Println(err)
 		}
