@@ -23,8 +23,8 @@ type OrderOutput struct {
 
 type TransactionOutput struct {
 	TransactionID string  `json:"transaction_id"`
-	BuyerId       string  `json:"buyer_id"`
-	SellerId      string  `json:"seller_id"`
+	BuyerID       string  `json:"buyer_id"`
+	SellerID      string  `json:"seller_id"`
 	Price         float64 `json:"price"`
 	Shares        int     `json:"shares"`
 }
